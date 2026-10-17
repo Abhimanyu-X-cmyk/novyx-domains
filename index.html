@@ -8,13 +8,15 @@
 <style>
 :root{--bg:#080b12;--panel:#111725;--line:#273247;--text:#f4f7ff;--muted:#9ba9c0;--blue:#6d8cff;--cyan:#53e6df;--green:#66e6a4}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(ellipse at top,#14203c 0,#080b12 48%);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
 header{padding:18px 6%;display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #202b40;position:sticky;top:0;background:#080b12ed;backdrop-filter:blur(12px);z-index:5}
 .logo{font-size:23px;font-weight:900;letter-spacing:2px}.logo span{color:var(--cyan)}
 nav{display:flex;gap:8px;flex-wrap:wrap}
-button,.btn{border:0;border-radius:10px;padding:11px 14px;background:var(--blue);color:white;font-weight:bold;cursor:pointer}
-button:hover{filter:brightness(1.12)}button.secondary{background:#1c2638;border:1px solid var(--line)}
-button.danger{background:#612b39}button.green{background:#167b56}
+button{border:0;border-radius:10px;padding:11px 14px;background:var(--blue);color:white;font-weight:bold;cursor:pointer}
+button:hover{filter:brightness(1.12)}button:disabled{opacity:.6;cursor:not-allowed}
+button.secondary{background:#1c2638;border:1px solid var(--line)}
+button.danger{background:#612b39}
 main{max-width:1120px;margin:auto;padding:30px 18px 70px}
 .hero{text-align:center;padding:48px 12px 35px}
 .tag{display:inline-block;color:var(--cyan);border:1px solid #31575d;background:#102327;padding:7px 12px;border-radius:30px;font-size:12px;font-weight:bold}
@@ -40,11 +42,10 @@ h2{font-size:23px;margin:0 0 14px}
 .row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid #263044}
 .row:last-child{border:0}
 .row .right{text-align:right}
-footer{text-align:center;border-top:1px solid var(--line);padding:25px;color:var(--muted);font-size:12px}
-small{color:var(--muted)}
-label{display:block;margin:12px 0 6px;font-size:13px;color:#cbd5e7}
-.notice{border:1px solid #69532a;background:#251e10;color:#f6d38c;padding:12px;border-radius:10px;font-size:12px;line-height:1.6}
 .empty{padding:20px;text-align:center;color:var(--muted)}
+.notice{border:1px solid #69532a;background:#251e10;color:#f6d38c;padding:12px;border-radius:10px;font-size:12px;line-height:1.6}
+label{display:block;margin:12px 0 6px;font-size:13px;color:#cbd5e7}
+footer{text-align:center;border-top:1px solid var(--line);padding:25px;color:var(--muted);font-size:12px}
 @media(max-width:600px){header{padding:14px;align-items:flex-start;flex-direction:column}.hero{padding-top:30px}.search{flex-direction:column}.search button{width:100%}.row{align-items:flex-start}.logo{font-size:21px}}
 </style>
 </head>
@@ -60,86 +61,86 @@ label{display:block;margin:12px 0 6px;font-size:13px;color:#cbd5e7}
 </header>
 
 <main>
-  <section class="hero" id="searchArea">
-    <span class="tag">YOUR NAME. YOUR NEXT CHAPTER.</span>
-    <h1>Find a domain.<br><span>Build your future.</span></h1>
-    <p>Discover a name for your website, business, portfolio or next big idea.</p>
-    <form class="search" id="searchForm">
-      <input id="domainInput" placeholder="Enter a name, e.g. mybrand" maxlength="50" aria-label="Domain name" required>
-      <button type="submit">Find Domains →</button>
-    </form>
-    <div class="note">DEMO MODE · Search results are simulated, not live availability checks.</div>
-  </section>
+<section class="hero" id="searchArea">
+  <span class="tag">YOUR NAME. YOUR NEXT CHAPTER.</span>
+  <h1>Find a domain.<br><span>Build your future.</span></h1>
+  <p>Discover a name for your website, business, portfolio or next big idea.</p>
+  <form class="search" id="searchForm">
+    <input id="domainInput" placeholder="Enter a name or domain, e.g. novyx.com" maxlength="100" aria-label="Domain name" required>
+    <button type="submit">Find Domains →</button>
+  </form>
+  <div class="note">DEMO MODE · Results are simulated, not live availability checks.</div>
+</section>
 
-  <section class="section">
-    <div class="section-head"><h2>Popular extensions</h2><span class="muted">Illustrative demo prices</span></div>
-    <div class="grid" id="extensionCards"></div>
-  </section>
+<section class="section">
+  <div class="section-head"><h2>Popular extensions</h2><span class="muted">Illustrative demo prices</span></div>
+  <div class="grid" id="extensionCards"></div>
+</section>
 
-  <section class="section hidden" id="resultsArea">
-    <div class="section-head"><h2>Search suggestions</h2><button class="secondary" onclick="aiSuggest()">✨ AI-style ideas</button></div>
-    <p id="resultsMessage">These are simulated suggestions, not registrar results.</p>
-    <div class="grid" id="results"></div>
-  </section>
+<section class="section hidden" id="resultsArea">
+  <div class="section-head"><h2>Domain suggestions</h2><button class="secondary" onclick="aiSuggest()">✨ AI-style ideas</button></div>
+  <p id="resultsMessage"></p>
+  <div class="grid" id="results"></div>
+</section>
 
-  <section class="section" id="cartArea">
-    <h2>Your cart</h2>
-    <div class="panel" id="cartContents"></div>
-    <div class="panel">
-      <h3>Demo checkout</h3>
-      <p>No real payment will be collected and no domain will be registered.</p>
-      <label for="customerName">Name (demo only)</label>
-      <input id="customerName" maxlength="60" placeholder="Your name">
-      <label for="customerEmail">Email (demo only)</label>
-      <input id="customerEmail" maxlength="100" type="email" placeholder="you@example.com">
-      <label for="paymentChoice">Simulated payment result</label>
-      <select id="paymentChoice">
-        <option value="success">Simulate successful payment</option>
-        <option value="failure">Simulate failed payment</option>
-      </select>
-      <div class="actions">
-        <button onclick="checkout()">Place demo order</button>
-        <button class="secondary" onclick="clearCart()">Clear cart</button>
-      </div>
-      <div id="checkoutMessage" aria-live="polite"></div>
+<section class="section" id="cartArea">
+  <h2>Your cart</h2>
+  <div class="panel" id="cartContents"></div>
+  <div class="panel">
+    <h3>Demo checkout</h3>
+    <p>No real payment will be collected and no domain will be registered.</p>
+    <label for="customerName">Name (demo only)</label>
+    <input id="customerName" maxlength="60" placeholder="Your name">
+    <label for="customerEmail">Email (demo only)</label>
+    <input id="customerEmail" maxlength="100" type="email" placeholder="you@example.com">
+    <label for="paymentChoice">Simulated payment result</label>
+    <select id="paymentChoice">
+      <option value="success">Simulate successful payment</option>
+      <option value="failure">Simulate failed payment</option>
+    </select>
+    <div class="actions">
+      <button onclick="checkout()">Place demo order</button>
+      <button class="secondary" onclick="clearCart()">Clear cart</button>
     </div>
-  </section>
+    <div id="checkoutMessage" aria-live="polite"></div>
+  </div>
+</section>
 
-  <section class="section" id="customerArea">
-    <h2>Customer dashboard</h2>
-    <div class="notice">DEMO ACCOUNT: Orders are stored only in this browser. This is not a secure customer account and is not shared across devices.</div>
-    <div class="panel">
-      <div class="section-head"><h3>Order history</h3><button class="secondary" onclick="renderOrders()">Refresh</button></div>
-      <div id="orderHistory"></div>
-    </div>
-    <div class="panel">
-      <h3>DNS control simulator</h3>
-      <p>Test adding a pretend DNS record. Nothing will change on the internet.</p>
-      <label for="dnsDomain">Demo domain</label><input id="dnsDomain" placeholder="example.com">
-      <label for="dnsType">Record type</label>
-      <select id="dnsType"><option>A</option><option>CNAME</option><option>TXT</option><option>MX</option></select>
-      <label for="dnsValue">Record value</label><input id="dnsValue" placeholder="Example value">
-      <div class="actions"><button onclick="addDns()">Add demo record</button></div>
-      <div id="dnsRecords"></div>
-    </div>
-  </section>
+<section class="section" id="customerArea">
+  <h2>Customer dashboard</h2>
+  <div class="notice">DEMO ACCOUNT: Orders are stored only in this browser. This is not a secure account and is not shared across devices.</div>
+  <div class="panel">
+    <div class="section-head"><h3>Order history</h3><button class="secondary" onclick="renderOrders()">Refresh</button></div>
+    <div id="orderHistory"></div>
+  </div>
+  <div class="panel">
+    <h3>DNS control simulator</h3>
+    <p>Test adding a pretend DNS record. Nothing will change on the internet.</p>
+    <label for="dnsDomain">Demo domain</label><input id="dnsDomain" placeholder="example.com">
+    <label for="dnsType">Record type</label>
+    <select id="dnsType"><option>A</option><option>CNAME</option><option>TXT</option><option>MX</option></select>
+    <label for="dnsValue">Record value</label><input id="dnsValue" placeholder="Example value">
+    <div class="actions"><button onclick="addDns()">Add demo record</button></div>
+    <div id="dnsRecords"></div>
+  </div>
+</section>
 
-  <section class="section" id="adminArea">
-    <h2>Admin dashboard</h2>
-    <div class="notice">LOCAL DEMO ONLY: There is no login or access protection. Do not put this public demo's admin panel into production or use real customer data.</div>
-    <div class="panel">
-      <h3>Edit demo prices (₹)</h3>
-      <p>Changes are saved in this browser only.</p>
-      <div class="grid" id="priceEditor"></div>
-      <button onclick="savePrices()">Save demo prices</button>
-      <span id="priceMessage" class="muted"></span>
-    </div>
-    <div class="panel">
-      <div class="section-head"><h3>Demo orders</h3><button class="secondary" onclick="renderOrders()">Refresh</button></div>
-      <div id="adminOrders"></div>
-      <button class="danger" onclick="clearOrders()">Delete all local demo orders</button>
-    </div>
-  </section>
+<section class="section" id="adminArea">
+  <h2>Admin dashboard</h2>
+  <div class="notice">LOCAL DEMO ONLY: There is no secure login or access protection. Do not use this public demo admin panel for real customers.</div>
+  <div class="panel">
+    <h3>Edit demo prices (₹)</h3>
+    <p>Changes are saved in this browser only.</p>
+    <div class="grid" id="priceEditor"></div>
+    <button onclick="savePrices()">Save demo prices</button>
+    <span id="priceMessage" class="muted"></span>
+  </div>
+  <div class="panel">
+    <div class="section-head"><h3>Demo orders</h3><button class="secondary" onclick="renderOrders()">Refresh</button></div>
+    <div id="adminOrders"></div>
+    <button class="danger" onclick="clearOrders()">Delete all local demo orders</button>
+  </div>
+</section>
 </main>
 
 <footer>
@@ -162,43 +163,67 @@ const extensions = [
 ];
 
 const KEY = "novyxDomainsDemoV1";
-let state = loadState();
-let currentBase = "";
 
 function loadState(){
   try{
-    const saved = JSON.parse(localStorage.getItem(KEY));
-    if(saved) return {
+    const saved=JSON.parse(localStorage.getItem(KEY));
+    if(saved)return {
       cart:Array.isArray(saved.cart)?saved.cart:[],
       orders:Array.isArray(saved.orders)?saved.orders:[],
-      prices:saved.prices && typeof saved.prices==="object"?saved.prices:{},
+      prices:saved.prices&&typeof saved.prices==="object"?saved.prices:{},
       dns:Array.isArray(saved.dns)?saved.dns:[]
     };
   }catch(e){}
   return {cart:[],orders:[],prices:{},dns:[]};
 }
+let state=loadState();
+let currentBase="";
+
 function persist(){
   try{localStorage.setItem(KEY,JSON.stringify(state))}
   catch(e){alert("Browser storage is unavailable. Demo data may not be saved.")}
 }
 function priceOf(ext){
-  return Number(state.prices[ext] ?? extensions.find(x=>x.ext===ext)?.price ?? 999);
+  const original=extensions.find(x=>x.ext===ext);
+  return Number(state.prices[ext]??(original?original.price:999));
 }
 function money(n){return "₹"+Number(n).toLocaleString("en-IN")}
 function safe(s){
   return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
 function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth",block:"start"})}
+
+/* Accept a plain name OR a name ending in a known extension. */
+function cleanDomainInput(value){
+  let name=value.trim().toLowerCase();
+
+  // Remove a trailing dot if someone enters novyx.com.
+  if(name.endsWith("."))name=name.slice(0,-1);
+
+  // Remove a recognized extension, longest first.
+  const knownExtension=extensions
+    .map(item=>item.ext)
+    .sort((a,b)=>b.length-a.length)
+    .find(ext=>name.endsWith(ext));
+
+  if(knownExtension){
+    name=name.slice(0,-knownExtension.length);
+  }
+
+  return name;
+}
 function validName(name){
   return /^[a-z0-9](?:[a-z0-9-]{0,48}[a-z0-9])?$/.test(name);
 }
+
 function domainCard(domain,ext){
-  const inCart=state.cart.some(x=>x.domain===domain+ext);
+  const full=domain+ext;
+  const inCart=state.cart.some(x=>x.domain===full);
   return `<div class="card">
     <span class="pill">SIMULATED RESULT</span>
-    <div class="domain" style="margin-top:12px">${safe(domain+ext)}</div>
+    <div class="domain" style="margin-top:12px">${safe(full)}</div>
     <div class="price">${money(priceOf(ext))}<small>/year*</small></div>
-    <div class="muted">Illustrative price · Not verified</div>
+    <div class="muted">Illustrative price · Availability not verified</div>
     <div class="actions"><button ${inCart?"disabled":""} onclick="addToCart('${domain}','${ext}')">${inCart?"Added ✓":"Add to cart"}</button></div>
   </div>`;
 }
@@ -209,28 +234,33 @@ function renderExtensions(){
     <div class="muted">Illustrative demo price</div></div>`).join("");
 }
 function searchDomains(base){
-  currentBase=base.toLowerCase();
-  const area=document.getElementById("resultsArea");
-  area.classList.remove("hidden");
+  currentBase=base;
+  document.getElementById("resultsArea").classList.remove("hidden");
   document.getElementById("resultsMessage").textContent=
     "Simulated suggestions for “"+base+"”. No live registrar availability was checked.";
   document.getElementById("results").innerHTML=extensions.map(x=>domainCard(base,x.ext)).join("");
   go("resultsArea");
 }
-document.getElementById("searchForm").addEventListener("submit",e=>{
+document.getElementById("searchForm").addEventListener("submit",function(e){
   e.preventDefault();
-  const name=document.getElementById("domainInput").value.trim().toLowerCase();
+
+  const raw=document.getElementById("domainInput").value;
+  const name=cleanDomainInput(raw);
+
   if(!validName(name)){
-    alert("Use letters, numbers and hyphens. Do not include spaces or an extension.");
+    alert("Enter a valid domain name, such as novyx, novyx.com or my-brand.in. Use letters, numbers and hyphens.");
     return;
   }
+
   searchDomains(name);
 });
+
 function aiSuggest(){
   if(!currentBase){alert("Search for a name first.");return}
-  const ideas=[currentBase+"hub", "get"+currentBase, currentBase+"online", currentBase+"world", "the"+currentBase];
+  const ideas=[currentBase+"hub","get"+currentBase,currentBase+"online",currentBase+"world","the"+currentBase];
   const unique=[...new Set(ideas)].filter(validName);
-  document.getElementById("resultsMessage").textContent="AI-style name ideas generated using simple rules—not a real AI model.";
+  document.getElementById("resultsMessage").textContent=
+    "AI-style suggestions made with simple rules—not a real AI model.";
   document.getElementById("results").innerHTML=unique.map(name=>
     `<div class="card"><h3>✨ ${safe(name)}</h3><p>Suggested brand variation</p>
     <button onclick="searchDomains('${name}')">Explore extensions</button></div>`).join("");
@@ -240,17 +270,15 @@ function addToCart(name,ext){
   if(state.cart.some(x=>x.domain===domain)){alert("Already in your cart.");return}
   state.cart.push({domain,ext,price:priceOf(ext)});
   persist();renderAll();
-  if(currentBase) {
-    document.getElementById("results").innerHTML=extensions.map(x=>domainCard(currentBase,x.ext)).join("");
-  }
-}
-function removeFromCart(domain){
-  state.cart=state.cart.filter(x=>x.domain!==domain);persist();renderAll();
   if(currentBase)document.getElementById("results").innerHTML=extensions.map(x=>domainCard(currentBase,x.ext)).join("");
 }
-function clearCart(){
-  state.cart=[];persist();renderAll();
+function removeFromCart(domain){
+  state.cart=state.cart.filter(x=>x.domain!==domain);
+  persist();renderAll();
+  if(currentBase)document.getElementById("results").innerHTML=extensions.map(x=>domainCard(currentBase,x.ext)).join("");
 }
+function clearCart(){state.cart=[];persist();renderAll()}
+
 function renderCart(){
   const box=document.getElementById("cartContents");
   if(!state.cart.length){
@@ -266,10 +294,12 @@ function checkout(){
   const name=document.getElementById("customerName").value.trim();
   const email=document.getElementById("customerEmail").value.trim();
   const message=document.getElementById("checkoutMessage");
-  if(!state.cart.length){message.innerHTML='<p>Please add a domain to your cart first.</p>';return}
+
+  if(!state.cart.length){message.innerHTML="<p>Please add a domain to your cart first.</p>";return}
   if(!name||!email||!document.getElementById("customerEmail").checkValidity()){
-    message.innerHTML='<p>Please enter a name and valid email for this demo order.</p>';return
+    message.innerHTML="<p>Please enter a name and valid email for this demo order.</p>";return
   }
+
   const successful=document.getElementById("paymentChoice").value==="success";
   const order={
     id:"NX-"+Date.now().toString().slice(-8),
@@ -282,23 +312,27 @@ function checkout(){
   state.orders.unshift(order);
   if(successful)state.cart=[];
   persist();renderAll();
+
   message.innerHTML=successful
     ?`<div class="notice">Demo payment success simulated. Order <strong>${safe(order.id)}</strong> created. No money was charged and no domain was registered.</div>`
-    :`<div class="notice">Demo payment failure simulated. No money was charged. Your cart is unchanged. Demo order reference: ${safe(order.id)}.</div>`;
+    :`<div class="notice">Demo payment failure simulated. No money was charged. Your cart is unchanged. Reference: ${safe(order.id)}.</div>`;
 }
 function renderOrders(){
-  const draw=(list)=>list.length?list.map(o=>`<div class="row"><div>
+  const draw=list=>list.length?list.map(o=>`<div class="row"><div>
     <strong>${safe(o.id)}</strong><div class="muted">${safe(o.date)} · ${safe(o.email)}</div>
     <div class="muted">${o.domains.map(d=>safe(d.domain)).join(", ")}</div>
     <div class="muted">${safe(o.status)}</div></div><div class="right"><strong>${money(o.total)}</strong></div></div>`).join("")
     :'<div class="empty">No demo orders yet.</div>';
+
   document.getElementById("orderHistory").innerHTML=draw(state.orders);
   document.getElementById("adminOrders").innerHTML=draw(state.orders);
 }
 function renderPriceEditor(){
-  document.getElementById("priceEditor").innerHTML=extensions.map(x=>`
-    <div class="card"><label for="price-${safe(x.ext.slice(1).replaceAll(".","-"))}">${safe(x.ext)} demo price (₹)</label>
-    <input type="number" min="1" max="10000000" id="price-${safe(x.ext.slice(1).replaceAll(".","-"))}" value="${priceOf(x.ext)}"></div>`).join("");
+  document.getElementById("priceEditor").innerHTML=extensions.map(x=>{
+    const id="price-"+x.ext.slice(1).replaceAll(".","-");
+    return `<div class="card"><label for="${id}">${safe(x.ext)} demo price (₹)</label>
+    <input type="number" min="1" max="10000000" id="${id}" value="${priceOf(x.ext)}"></div>`;
+  }).join("");
 }
 function savePrices(){
   for(const x of extensions){
