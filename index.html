@@ -4,162 +4,337 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOVYX Domains | Your Digital Identity</title>
+<title>NOVYX Domains | Find Your Digital Identity</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#080b14;color:#f5f7ff;line-height:1.6}
-header{display:flex;justify-content:space-between;align-items:center;padding:22px 7%;border-bottom:1px solid #22283a}
-.logo{font-size:23px;font-weight:800;letter-spacing:1px}
-.logo span{color:#8b7cff}
-nav a{color:#c5c9d8;text-decoration:none;margin-left:20px;font-size:14px}
-.hero{text-align:center;padding:85px 20px 55px;background:radial-gradient(ellipse at top,#25204d 0%,#080b14 65%)}
-.tag{color:#a89cff;font-size:12px;letter-spacing:3px}
-h1{font-size:clamp(36px,7vw,65px);line-height:1.1;margin:20px auto;max-width:800px}
-h1 span{color:#a89cff}
-.hero p{color:#aeb5c8;max-width:600px;margin:15px auto 28px}
-.search{display:flex;max-width:620px;margin:auto;background:#141827;border:1px solid #414760;border-radius:12px;padding:7px}
-.search input{flex:1;min-width:0;background:transparent;color:white;border:0;outline:0;padding:13px;font-size:15px}
-button{background:#8b7cff;color:#090b14;border:0;border-radius:8px;padding:13px 18px;font-weight:bold;cursor:pointer}
-.note{font-size:12px!important;color:#858da5!important;margin-top:12px!important}
-section{padding:55px 7%}
-.section-title{text-align:center;font-size:30px;margin-bottom:10px}
-.subtitle{text-align:center;color:#9da5bb;margin-bottom:32px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;max-width:1050px;margin:auto}
-.card{background:#111522;border:1px solid #282e43;border-radius:15px;padding:25px}
-.card h3{font-size:23px;margin-bottom:8px}
-.card p{color:#a4acc1;font-size:14px}
-.price{font-size:27px;font-weight:bold;margin:18px 0}
-.price small{font-size:13px;color:#a4acc1;font-weight:normal}
-.card button{width:100%;margin-top:12px}
-.feature{border-color:#7770d8;background:linear-gradient(145deg,#1a1933,#111522)}
-.result{max-width:620px;margin:20px auto 0;text-align:left}
-.result-item{background:#111522;padding:15px;border:1px solid #30364c;border-radius:9px;margin-top:9px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
-.result-item strong{overflow-wrap:anywhere}
-.result-item button{padding:9px 12px}
-footer{text-align:center;padding:30px 15px;border-top:1px solid #242a3b;color:#858da5;font-size:13px}
-footer a{color:#a89cff}
-@media(max-width:550px){header{padding:18px 5%}nav a{margin-left:10px;font-size:12px}.hero{padding-top:65px}.search input{width:60%;padding:10px}.search button{padding:11px 12px}section{padding:42px 5%}}
+:root{--bg:#080b12;--panel:#111725;--line:#273247;--text:#f4f7ff;--muted:#9ba9c0;--blue:#6d8cff;--cyan:#53e6df;--green:#66e6a4}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#14203c 0,#080b12 48%);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
+header{padding:18px 6%;display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #202b40;position:sticky;top:0;background:#080b12ed;backdrop-filter:blur(12px);z-index:5}
+.logo{font-size:23px;font-weight:900;letter-spacing:2px}.logo span{color:var(--cyan)}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+button,.btn{border:0;border-radius:10px;padding:11px 14px;background:var(--blue);color:white;font-weight:bold;cursor:pointer}
+button:hover{filter:brightness(1.12)}button.secondary{background:#1c2638;border:1px solid var(--line)}
+button.danger{background:#612b39}button.green{background:#167b56}
+main{max-width:1120px;margin:auto;padding:30px 18px 70px}
+.hero{text-align:center;padding:48px 12px 35px}
+.tag{display:inline-block;color:var(--cyan);border:1px solid #31575d;background:#102327;padding:7px 12px;border-radius:30px;font-size:12px;font-weight:bold}
+h1{font-size:clamp(34px,6vw,64px);margin:18px 0 12px;letter-spacing:-2px}
+h1 span{background:linear-gradient(90deg,#7f9aff,#53e6df);color:transparent;background-clip:text}
+p{color:var(--muted);line-height:1.6}
+.search{display:flex;gap:9px;max-width:760px;margin:26px auto 12px}
+input,select{width:100%;background:#0b111d;border:1px solid var(--line);color:var(--text);padding:13px;border-radius:10px;min-width:0}
+.search button{white-space:nowrap}
+.note{text-align:center;font-size:12px;color:#f0c879}
+.section{margin-top:30px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2{font-size:23px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px}
+.card{background:linear-gradient(145deg,#141d2d,#0e1420);border:1px solid var(--line);padding:18px;border-radius:16px;min-width:0}
+.card h3{margin:0 0 9px}.price{font-size:25px;font-weight:bold;margin:13px 0}.muted{color:var(--muted);font-size:13px}
+.domain{font-size:19px;font-weight:bold;overflow-wrap:anywhere}
+.pill{display:inline-block;font-size:11px;padding:5px 8px;border-radius:20px;background:#173a35;color:var(--green)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.actions button{flex:1}
+.panel{background:#0e1420;border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:18px}
+.hidden{display:none!important}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid #263044}
+.row:last-child{border:0}
+.row .right{text-align:right}
+footer{text-align:center;border-top:1px solid var(--line);padding:25px;color:var(--muted);font-size:12px}
+small{color:var(--muted)}
+label{display:block;margin:12px 0 6px;font-size:13px;color:#cbd5e7}
+.notice{border:1px solid #69532a;background:#251e10;color:#f6d38c;padding:12px;border-radius:10px;font-size:12px;line-height:1.6}
+.empty{padding:20px;text-align:center;color:var(--muted)}
+@media(max-width:600px){header{padding:14px;align-items:flex-start;flex-direction:column}.hero{padding-top:30px}.search{flex-direction:column}.search button{width:100%}.row{align-items:flex-start}.logo{font-size:21px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">NOVYX<span> DOMAINS</span></div>
-  <nav><a href="#pricing">Pricing</a><a href="#subdomains">Subdomains</a></nav>
+  <div class="logo">NOVYX<span>.</span> DOMAINS</div>
+  <nav>
+    <button class="secondary" onclick="go('searchArea')">Search</button>
+    <button class="secondary" onclick="go('cartArea')">Cart <span id="cartCount">0</span></button>
+    <button class="secondary" onclick="go('customerArea')">My Orders</button>
+    <button class="secondary" onclick="go('adminArea')">Demo Admin</button>
+  </nav>
 </header>
 
 <main>
-<section class="hero">
-  <div class="tag">YOUR DIGITAL FUTURE STARTS HERE</div>
-  <h1>Find your place<br>on the <span>internet.</span></h1>
-  <p>Discover a domain for your business, project or personal brand with NOVYX Domains.</p>
-  <form class="search" id="searchForm">
-    <input id="domainInput" placeholder="Enter a name, e.g. mybrand" aria-label="Domain name" required>
-    <button type="submit">Search</button>
-  </form>
-  <p class="note">DEMO MODE · Availability and prices are not live yet.</p>
-  <div class="result" id="results" aria-live="polite"></div>
-</section>
+  <section class="hero" id="searchArea">
+    <span class="tag">YOUR NAME. YOUR NEXT CHAPTER.</span>
+    <h1>Find a domain.<br><span>Build your future.</span></h1>
+    <p>Discover a name for your website, business, portfolio or next big idea.</p>
+    <form class="search" id="searchForm">
+      <input id="domainInput" placeholder="Enter a name, e.g. mybrand" maxlength="50" aria-label="Domain name" required>
+      <button type="submit">Find Domains →</button>
+    </form>
+    <div class="note">DEMO MODE · Search results are simulated, not live availability checks.</div>
+  </section>
 
-<section id="pricing">
-  <h2 class="section-title">Choose your domain</h2>
-  <p class="subtitle">Example prices for design preview only — not offers to purchase.</p>
-  <div class="grid">
-    <div class="card feature">
-      <h3>.com</h3><p>For brands and businesses worldwide.</p>
-      <div class="price">₹1,299 <small>/ year*</small></div>
-      <button onclick="choose('.com')">Explore .com</button>
-    </div>
-    <div class="card">
-      <h3>.in</h3><p>Build your identity in India.</p>
-      <div class="price">₹699 <small>/ year*</small></div>
-      <button onclick="choose('.in')">Explore .in</button>
-    </div>
-    <div class="card">
-      <h3>.org</h3><p>For communities and organisations.</p>
-      <div class="price">₹1,299 <small>/ year*</small></div>
-      <button onclick="choose('.org')">Explore .org</button>
-    </div>
-  </div>
-  <p class="subtitle" style="margin-top:20px;font-size:12px">*Illustrative demo prices only. Actual registration, renewal and tax costs will be confirmed before launch.</p>
-</section>
+  <section class="section">
+    <div class="section-head"><h2>Popular extensions</h2><span class="muted">Illustrative demo prices</span></div>
+    <div class="grid" id="extensionCards"></div>
+  </section>
 
-<section id="subdomains">
-  <h2 class="section-title">Start with a NOVYX subdomain</h2>
-  <p class="subtitle">A simpler address for your first project.</p>
-  <div class="grid">
-    <div class="card">
-      <h3>YourName.novyx.com</h3>
-      <p>A possible future option for portfolios, experiments and personal projects.</p>
-      <div class="price">Coming soon</div>
-      <button onclick="alert('NOVYX subdomains are not available yet. Stay tuned!')">Coming soon</button>
+  <section class="section hidden" id="resultsArea">
+    <div class="section-head"><h2>Search suggestions</h2><button class="secondary" onclick="aiSuggest()">✨ AI-style ideas</button></div>
+    <p id="resultsMessage">These are simulated suggestions, not registrar results.</p>
+    <div class="grid" id="results"></div>
+  </section>
+
+  <section class="section" id="cartArea">
+    <h2>Your cart</h2>
+    <div class="panel" id="cartContents"></div>
+    <div class="panel">
+      <h3>Demo checkout</h3>
+      <p>No real payment will be collected and no domain will be registered.</p>
+      <label for="customerName">Name (demo only)</label>
+      <input id="customerName" maxlength="60" placeholder="Your name">
+      <label for="customerEmail">Email (demo only)</label>
+      <input id="customerEmail" maxlength="100" type="email" placeholder="you@example.com">
+      <label for="paymentChoice">Simulated payment result</label>
+      <select id="paymentChoice">
+        <option value="success">Simulate successful payment</option>
+        <option value="failure">Simulate failed payment</option>
+      </select>
+      <div class="actions">
+        <button onclick="checkout()">Place demo order</button>
+        <button class="secondary" onclick="clearCart()">Clear cart</button>
+      </div>
+      <div id="checkoutMessage" aria-live="polite"></div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <section class="section" id="customerArea">
+    <h2>Customer dashboard</h2>
+    <div class="notice">DEMO ACCOUNT: Orders are stored only in this browser. This is not a secure customer account and is not shared across devices.</div>
+    <div class="panel">
+      <div class="section-head"><h3>Order history</h3><button class="secondary" onclick="renderOrders()">Refresh</button></div>
+      <div id="orderHistory"></div>
+    </div>
+    <div class="panel">
+      <h3>DNS control simulator</h3>
+      <p>Test adding a pretend DNS record. Nothing will change on the internet.</p>
+      <label for="dnsDomain">Demo domain</label><input id="dnsDomain" placeholder="example.com">
+      <label for="dnsType">Record type</label>
+      <select id="dnsType"><option>A</option><option>CNAME</option><option>TXT</option><option>MX</option></select>
+      <label for="dnsValue">Record value</label><input id="dnsValue" placeholder="Example value">
+      <div class="actions"><button onclick="addDns()">Add demo record</button></div>
+      <div id="dnsRecords"></div>
+    </div>
+  </section>
+
+  <section class="section" id="adminArea">
+    <h2>Admin dashboard</h2>
+    <div class="notice">LOCAL DEMO ONLY: There is no login or access protection. Do not put this public demo's admin panel into production or use real customer data.</div>
+    <div class="panel">
+      <h3>Edit demo prices (₹)</h3>
+      <p>Changes are saved in this browser only.</p>
+      <div class="grid" id="priceEditor"></div>
+      <button onclick="savePrices()">Save demo prices</button>
+      <span id="priceMessage" class="muted"></span>
+    </div>
+    <div class="panel">
+      <div class="section-head"><h3>Demo orders</h3><button class="secondary" onclick="renderOrders()">Refresh</button></div>
+      <div id="adminOrders"></div>
+      <button class="danger" onclick="clearOrders()">Delete all local demo orders</button>
+    </div>
+  </section>
 </main>
 
 <footer>
-  <p><strong>NOVYX DOMAINS</strong> — Your name. Your online identity.</p>
-  <p style="margin-top:8px">Demo website · No real domain sales or payments are active.</p>
-  <p style="margin-top:8px">© 2026 NOVYX Domains</p>
+  © <span id="year"></span> NOVYX Domains · Demo website<br><br>
+  No real domain availability, registration, payment processing or DNS changes are provided.
 </footer>
 
 <script>
-const input = document.getElementById('domainInput');
-const results = document.getElementById('results');
+const extensions = [
+  {ext:".com",price:1299},{ext:".in",price:699},{ext:".org",price:1199},
+  {ext:".net",price:1399},{ext:".co",price:2499},{ext:".info",price:899},
+  {ext:".biz",price:999},{ext:".co.in",price:599},{ext:".org.in",price:599},
+  {ext:".net.in",price:599},{ext:".ai",price:6999},{ext:".app",price:1499},
+  {ext:".dev",price:1399},{ext:".tech",price:1999},{ext:".io",price:3999},
+  {ext:".cloud",price:1999},{ext:".store",price:1999},{ext:".shop",price:1799},
+  {ext:".online",price:999},{ext:".site",price:899},{ext:".website",price:999},
+  {ext:".space",price:899},{ext:".me",price:1499},{ext:".xyz",price:899},
+  {ext:".live",price:1299},{ext:".world",price:1499},{ext:".email",price:1499},
+  {ext:".services",price:1799}
+];
 
-function cleanName(value) {
-  return value.trim().toLowerCase()
-    .replace(/^https?:\/\//, '')
-    .replace(/^www\./, '')
-    .split('/')[0]
-    .split('.')[0]
-    .replace(/[^a-z0-9-]/g, '')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 50);
+const KEY = "novyxDomainsDemoV1";
+let state = loadState();
+let currentBase = "";
+
+function loadState(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(KEY));
+    if(saved) return {
+      cart:Array.isArray(saved.cart)?saved.cart:[],
+      orders:Array.isArray(saved.orders)?saved.orders:[],
+      prices:saved.prices && typeof saved.prices==="object"?saved.prices:{},
+      dns:Array.isArray(saved.dns)?saved.dns:[]
+    };
+  }catch(e){}
+  return {cart:[],orders:[],prices:{},dns:[]};
 }
-
-document.getElementById('searchForm').addEventListener('submit', function(event) {
-  event.preventDefault();
-  const name = cleanName(input.value);
-
-  if (!name || name.length < 2) {
-    results.textContent = 'Enter a name with at least 2 letters or numbers.';
+function persist(){
+  try{localStorage.setItem(KEY,JSON.stringify(state))}
+  catch(e){alert("Browser storage is unavailable. Demo data may not be saved.")}
+}
+function priceOf(ext){
+  return Number(state.prices[ext] ?? extensions.find(x=>x.ext===ext)?.price ?? 999);
+}
+function money(n){return "₹"+Number(n).toLocaleString("en-IN")}
+function safe(s){
+  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth",block:"start"})}
+function validName(name){
+  return /^[a-z0-9](?:[a-z0-9-]{0,48}[a-z0-9])?$/.test(name);
+}
+function domainCard(domain,ext){
+  const inCart=state.cart.some(x=>x.domain===domain+ext);
+  return `<div class="card">
+    <span class="pill">SIMULATED RESULT</span>
+    <div class="domain" style="margin-top:12px">${safe(domain+ext)}</div>
+    <div class="price">${money(priceOf(ext))}<small>/year*</small></div>
+    <div class="muted">Illustrative price · Not verified</div>
+    <div class="actions"><button ${inCart?"disabled":""} onclick="addToCart('${domain}','${ext}')">${inCart?"Added ✓":"Add to cart"}</button></div>
+  </div>`;
+}
+function renderExtensions(){
+  document.getElementById("extensionCards").innerHTML=extensions.map(x=>`
+    <div class="card"><h3>${safe(x.ext)}</h3>
+    <div class="price">${money(priceOf(x.ext))}<small>/year*</small></div>
+    <div class="muted">Illustrative demo price</div></div>`).join("");
+}
+function searchDomains(base){
+  currentBase=base.toLowerCase();
+  const area=document.getElementById("resultsArea");
+  area.classList.remove("hidden");
+  document.getElementById("resultsMessage").textContent=
+    "Simulated suggestions for “"+base+"”. No live registrar availability was checked.";
+  document.getElementById("results").innerHTML=extensions.map(x=>domainCard(base,x.ext)).join("");
+  go("resultsArea");
+}
+document.getElementById("searchForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=document.getElementById("domainInput").value.trim().toLowerCase();
+  if(!validName(name)){
+    alert("Use letters, numbers and hyphens. Do not include spaces or an extension.");
     return;
   }
-
-  results.replaceChildren();
-  const heading = document.createElement('p');
-  heading.textContent = 'Demo suggestions for "' + name + '"';
-  results.appendChild(heading);
-
-  ['.com', '.in', '.org'].forEach(function(ext) {
-    const row = document.createElement('div');
-    row.className = 'result-item';
-
-    const domain = document.createElement('strong');
-    domain.textContent = name + ext;
-
-    const button = document.createElement('button');
-    button.textContent = 'Demo only';
-    button.addEventListener('click', function() {
-      alert('This is a preview only. Live availability checking and registration have not been connected.');
-    });
-
-    row.append(domain, button);
-    results.appendChild(row);
-  });
-
-  const note = document.createElement('p');
-  note.className = 'note';
-  note.textContent = 'These are example suggestions, not verified available domains.';
-  results.appendChild(note);
+  searchDomains(name);
 });
-
-function choose(extension) {
-  input.value = cleanName(input.value) || 'mybrand';
-  document.getElementById('searchForm').requestSubmit();
-  input.focus();
+function aiSuggest(){
+  if(!currentBase){alert("Search for a name first.");return}
+  const ideas=[currentBase+"hub", "get"+currentBase, currentBase+"online", currentBase+"world", "the"+currentBase];
+  const unique=[...new Set(ideas)].filter(validName);
+  document.getElementById("resultsMessage").textContent="AI-style name ideas generated using simple rules—not a real AI model.";
+  document.getElementById("results").innerHTML=unique.map(name=>
+    `<div class="card"><h3>✨ ${safe(name)}</h3><p>Suggested brand variation</p>
+    <button onclick="searchDomains('${name}')">Explore extensions</button></div>`).join("");
 }
+function addToCart(name,ext){
+  const domain=name+ext;
+  if(state.cart.some(x=>x.domain===domain)){alert("Already in your cart.");return}
+  state.cart.push({domain,ext,price:priceOf(ext)});
+  persist();renderAll();
+  if(currentBase) {
+    document.getElementById("results").innerHTML=extensions.map(x=>domainCard(currentBase,x.ext)).join("");
+  }
+}
+function removeFromCart(domain){
+  state.cart=state.cart.filter(x=>x.domain!==domain);persist();renderAll();
+  if(currentBase)document.getElementById("results").innerHTML=extensions.map(x=>domainCard(currentBase,x.ext)).join("");
+}
+function clearCart(){
+  state.cart=[];persist();renderAll();
+}
+function renderCart(){
+  const box=document.getElementById("cartContents");
+  if(!state.cart.length){
+    box.innerHTML='<div class="empty">Your cart is empty. Search for a domain to get started.</div>';
+  }else{
+    box.innerHTML=state.cart.map(x=>`<div class="row"><div><strong>${safe(x.domain)}</strong><div class="muted">Demo domain · 1 year</div></div>
+    <div class="right"><strong>${money(x.price)}</strong><br><button class="danger" style="margin-top:7px" onclick="removeFromCart('${x.domain}')">Remove</button></div></div>`).join("")+
+    `<div class="row"><strong>Demo total</strong><strong>${money(state.cart.reduce((s,x)=>s+x.price,0))}</strong></div>`;
+  }
+  document.getElementById("cartCount").textContent=state.cart.length;
+}
+function checkout(){
+  const name=document.getElementById("customerName").value.trim();
+  const email=document.getElementById("customerEmail").value.trim();
+  const message=document.getElementById("checkoutMessage");
+  if(!state.cart.length){message.innerHTML='<p>Please add a domain to your cart first.</p>';return}
+  if(!name||!email||!document.getElementById("customerEmail").checkValidity()){
+    message.innerHTML='<p>Please enter a name and valid email for this demo order.</p>';return
+  }
+  const successful=document.getElementById("paymentChoice").value==="success";
+  const order={
+    id:"NX-"+Date.now().toString().slice(-8),
+    name,email,
+    domains:state.cart.map(x=>({...x})),
+    total:state.cart.reduce((s,x)=>s+x.price,0),
+    status:successful?"Demo payment successful — NOT registered":"Demo payment failed — NOT charged",
+    date:new Date().toLocaleString()
+  };
+  state.orders.unshift(order);
+  if(successful)state.cart=[];
+  persist();renderAll();
+  message.innerHTML=successful
+    ?`<div class="notice">Demo payment success simulated. Order <strong>${safe(order.id)}</strong> created. No money was charged and no domain was registered.</div>`
+    :`<div class="notice">Demo payment failure simulated. No money was charged. Your cart is unchanged. Demo order reference: ${safe(order.id)}.</div>`;
+}
+function renderOrders(){
+  const draw=(list)=>list.length?list.map(o=>`<div class="row"><div>
+    <strong>${safe(o.id)}</strong><div class="muted">${safe(o.date)} · ${safe(o.email)}</div>
+    <div class="muted">${o.domains.map(d=>safe(d.domain)).join(", ")}</div>
+    <div class="muted">${safe(o.status)}</div></div><div class="right"><strong>${money(o.total)}</strong></div></div>`).join("")
+    :'<div class="empty">No demo orders yet.</div>';
+  document.getElementById("orderHistory").innerHTML=draw(state.orders);
+  document.getElementById("adminOrders").innerHTML=draw(state.orders);
+}
+function renderPriceEditor(){
+  document.getElementById("priceEditor").innerHTML=extensions.map(x=>`
+    <div class="card"><label for="price-${safe(x.ext.slice(1).replaceAll(".","-"))}">${safe(x.ext)} demo price (₹)</label>
+    <input type="number" min="1" max="10000000" id="price-${safe(x.ext.slice(1).replaceAll(".","-"))}" value="${priceOf(x.ext)}"></div>`).join("");
+}
+function savePrices(){
+  for(const x of extensions){
+    const id="price-"+x.ext.slice(1).replaceAll(".","-");
+    const value=Number(document.getElementById(id).value);
+    if(!Number.isFinite(value)||value<1||value>10000000){
+      alert("Enter a demo price between ₹1 and ₹10,000,000.");return;
+    }
+    state.prices[x.ext]=Math.round(value);
+  }
+  persist();renderAll();
+  document.getElementById("priceMessage").textContent="Saved locally ✓";
+}
+function clearOrders(){
+  if(!confirm("Delete all demo orders saved in this browser?"))return;
+  state.orders=[];persist();renderOrders();
+}
+function addDns(){
+  const domain=document.getElementById("dnsDomain").value.trim();
+  const type=document.getElementById("dnsType").value;
+  const value=document.getElementById("dnsValue").value.trim();
+  if(!domain||!value){alert("Enter a demo domain and record value.");return}
+  state.dns.unshift({domain,type,value});
+  persist();renderDns();
+  document.getElementById("dnsValue").value="";
+}
+function renderDns(){
+  document.getElementById("dnsRecords").innerHTML=state.dns.length
+    ?state.dns.map(r=>`<div class="row"><div><strong>${safe(r.domain)}</strong><div class="muted">${safe(r.type)} → ${safe(r.value)}</div></div><span class="pill">DEMO</span></div>`).join("")
+    :'<div class="empty">No demo DNS records yet.</div>';
+}
+function renderAll(){
+  renderExtensions();renderCart();renderOrders();renderPriceEditor();renderDns();
+}
+document.getElementById("year").textContent=new Date().getFullYear();
+renderAll();
 </script>
 </body>
 </html>
