@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVYX Domains | Your Digital Identity</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#080b14;color:#f5f7ff;line-height:1.6}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 7%;border-bottom:1px solid #22283a}
+.logo{font-size:23px;font-weight:800;letter-spacing:1px}
+.logo span{color:#8b7cff}
+nav a{color:#c5c9d8;text-decoration:none;margin-left:20px;font-size:14px}
+.hero{text-align:center;padding:85px 20px 55px;background:radial-gradient(ellipse at top,#25204d 0%,#080b14 65%)}
+.tag{color:#a89cff;font-size:12px;letter-spacing:3px}
+h1{font-size:clamp(36px,7vw,65px);line-height:1.1;margin:20px auto;max-width:800px}
+h1 span{color:#a89cff}
+.hero p{color:#aeb5c8;max-width:600px;margin:15px auto 28px}
+.search{display:flex;max-width:620px;margin:auto;background:#141827;border:1px solid #414760;border-radius:12px;padding:7px}
+.search input{flex:1;min-width:0;background:transparent;color:white;border:0;outline:0;padding:13px;font-size:15px}
+button{background:#8b7cff;color:#090b14;border:0;border-radius:8px;padding:13px 18px;font-weight:bold;cursor:pointer}
+.note{font-size:12px!important;color:#858da5!important;margin-top:12px!important}
+section{padding:55px 7%}
+.section-title{text-align:center;font-size:30px;margin-bottom:10px}
+.subtitle{text-align:center;color:#9da5bb;margin-bottom:32px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;max-width:1050px;margin:auto}
+.card{background:#111522;border:1px solid #282e43;border-radius:15px;padding:25px}
+.card h3{font-size:23px;margin-bottom:8px}
+.card p{color:#a4acc1;font-size:14px}
+.price{font-size:27px;font-weight:bold;margin:18px 0}
+.price small{font-size:13px;color:#a4acc1;font-weight:normal}
+.card button{width:100%;margin-top:12px}
+.feature{border-color:#7770d8;background:linear-gradient(145deg,#1a1933,#111522)}
+.result{max-width:620px;margin:20px auto 0;text-align:left}
+.result-item{background:#111522;padding:15px;border:1px solid #30364c;border-radius:9px;margin-top:9px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.result-item strong{overflow-wrap:anywhere}
+.result-item button{padding:9px 12px}
+footer{text-align:center;padding:30px 15px;border-top:1px solid #242a3b;color:#858da5;font-size:13px}
+footer a{color:#a89cff}
+@media(max-width:550px){header{padding:18px 5%}nav a{margin-left:10px;font-size:12px}.hero{padding-top:65px}.search input{width:60%;padding:10px}.search button{padding:11px 12px}section{padding:42px 5%}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">NOVYX<span> DOMAINS</span></div>
+  <nav><a href="#pricing">Pricing</a><a href="#subdomains">Subdomains</a></nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="tag">YOUR DIGITAL FUTURE STARTS HERE</div>
+  <h1>Find your place<br>on the <span>internet.</span></h1>
+  <p>Discover a domain for your business, project or personal brand with NOVYX Domains.</p>
+  <form class="search" id="searchForm">
+    <input id="domainInput" placeholder="Enter a name, e.g. mybrand" aria-label="Domain name" required>
+    <button type="submit">Search</button>
+  </form>
+  <p class="note">DEMO MODE · Availability and prices are not live yet.</p>
+  <div class="result" id="results" aria-live="polite"></div>
+</section>
+
+<section id="pricing">
+  <h2 class="section-title">Choose your domain</h2>
+  <p class="subtitle">Example prices for design preview only — not offers to purchase.</p>
+  <div class="grid">
+    <div class="card feature">
+      <h3>.com</h3><p>For brands and businesses worldwide.</p>
+      <div class="price">₹1,299 <small>/ year*</small></div>
+      <button onclick="choose('.com')">Explore .com</button>
+    </div>
+    <div class="card">
+      <h3>.in</h3><p>Build your identity in India.</p>
+      <div class="price">₹699 <small>/ year*</small></div>
+      <button onclick="choose('.in')">Explore .in</button>
+    </div>
+    <div class="card">
+      <h3>.org</h3><p>For communities and organisations.</p>
+      <div class="price">₹1,299 <small>/ year*</small></div>
+      <button onclick="choose('.org')">Explore .org</button>
+    </div>
+  </div>
+  <p class="subtitle" style="margin-top:20px;font-size:12px">*Illustrative demo prices only. Actual registration, renewal and tax costs will be confirmed before launch.</p>
+</section>
+
+<section id="subdomains">
+  <h2 class="section-title">Start with a NOVYX subdomain</h2>
+  <p class="subtitle">A simpler address for your first project.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>YourName.novyx.com</h3>
+      <p>A possible future option for portfolios, experiments and personal projects.</p>
+      <div class="price">Coming soon</div>
+      <button onclick="alert('NOVYX subdomains are not available yet. Stay tuned!')">Coming soon</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p><strong>NOVYX DOMAINS</strong> — Your name. Your online identity.</p>
+  <p style="margin-top:8px">Demo website · No real domain sales or payments are active.</p>
+  <p style="margin-top:8px">© 2026 NOVYX Domains</p>
+</footer>
+
+<script>
+const input = document.getElementById('domainInput');
+const results = document.getElementById('results');
+
+function cleanName(value) {
+  return value.trim().toLowerCase()
+    .replace(/^https?:\/\//, '')
+    .replace(/^www\./, '')
+    .split('/')[0]
+    .split('.')[0]
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 50);
+}
+
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const name = cleanName(input.value);
+
+  if (!name || name.length < 2) {
+    results.textContent = 'Enter a name with at least 2 letters or numbers.';
+    return;
+  }
+
+  results.replaceChildren();
+  const heading = document.createElement('p');
+  heading.textContent = 'Demo suggestions for "' + name + '"';
+  results.appendChild(heading);
+
+  ['.com', '.in', '.org'].forEach(function(ext) {
+    const row = document.createElement('div');
+    row.className = 'result-item';
+
+    const domain = document.createElement('strong');
+    domain.textContent = name + ext;
+
+    const button = document.createElement('button');
+    button.textContent = 'Demo only';
+    button.addEventListener('click', function() {
+      alert('This is a preview only. Live availability checking and registration have not been connected.');
+    });
+
+    row.append(domain, button);
+    results.appendChild(row);
+  });
+
+  const note = document.createElement('p');
+  note.className = 'note';
+  note.textContent = 'These are example suggestions, not verified available domains.';
+  results.appendChild(note);
+});
+
+function choose(extension) {
+  input.value = cleanName(input.value) || 'mybrand';
+  document.getElementById('searchForm').requestSubmit();
+  input.focus();
+}
+</script>
+</body>
+</html>
