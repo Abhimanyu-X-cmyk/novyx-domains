@@ -1,0 +1,16 @@
+// File: api/orders/get.js
+import { applySecurityHeaders, handleOptions, hashToken, timingSafeEqualStr } from '../../lib/security.js';
+import { query } from '../../lib/db.js';
+import { formatMinorCurrency } from '../../lib/pricing.js';
+
+export default async function handler(req, res) {
+  applySecurityHeaders(req, res);
+  if (handleOptions(req, res)) return;
+  const orderId = req.query?.id, token = req.query?.token || req.headers?.['x-order-token'];
+  if (!orderId || !token) return res.status(400).json({ error: 'id and token required.' });
+  const oRes = await query(`SELECT * FROM orders WHERE id = $1`, [orderId]);
+  if (oRes.rowCount === 0) return res.status(404).json({ error: 'Order not found.' });
+  const order = oRes.rows[0];
+  if (!timingSafeEqualStr(hashToken(token), order.access_token_hash)) return res.status(403).json({ error: 'Invalid token.' });
+  return res.status(200).json({ status: 'ok', order: { id: order.id, orderNumber: order.order_number, totalMinor: order.total_minor, formattedTotal: formatMinorCurrency(order.total_minor), paymentStatus: order.payment_status, paymentMethod: order.payment_method } });
+}
