@@ -30,13 +30,20 @@ export default async function handler(req, res) {
   const coupon = String(body.couponCode || '').trim().toUpperCase();
   let appliedCoupon = null;
 
-  if (coupon === 'NOVYX150' && totalMinor >= 190000) { totalMinor -= 15000; appliedCoupon = 'NOVYX150'; }
-  else if (coupon === 'BUY3GET1' && pricedItems.length >= 4) {
+  if (coupon === 'NOVYX150' && totalMinor >= 190000) { 
+    totalMinor -= 15000; 
+    appliedCoupon = 'NOVYX150'; 
+  } else if (coupon === 'BUY3GET1' && pricedItems.length >= 4) {
     pricedItems.sort((a, b) => a.unitPriceMinor - b.unitPriceMinor);
     totalMinor -= Math.round(pricedItems[0].unitPriceMinor * 0.50);
     appliedCoupon = 'BUY3GET1';
-  } else if (coupon === 'FREESSL50' && totalMinor >= 99900) { totalMinor -= 5000; appliedCoupon = 'FREESSL50'; }
-  else if (coupon === 'FAST20') { totalMinor -= Math.min(10000, Math.round(totalMinor * 0.20)); appliedCoupon = 'FAST20'; }
+  } else if (coupon === 'FREESSL50' && totalMinor >= 99900) { 
+    totalMinor -= 5000; 
+    appliedCoupon = 'FREESSL50'; 
+  } else if (coupon === 'FAST20') { 
+    totalMinor -= Math.min(10000, Math.round(totalMinor * 0.20)); 
+    appliedCoupon = 'FAST20'; 
+  }
 
   const orderNumber = `NVX-${Date.now().toString(36).toUpperCase()}-${crypto.randomBytes(2).toString('hex').toUpperCase()}`;
   const orderAccessToken = generateSecureToken(24);
@@ -60,5 +67,16 @@ export default async function handler(req, res) {
     return orderRow;
   });
 
-  return res.status(201).json({ status: 'created', order: { id: createdOrder.id, orderNumber, orderAccessToken, totalMinor, formattedTotal: formatMinorCurrency(totalMinor), appliedCoupon, items: pricedItems } });
+  return res.status(201).json({ 
+    status: 'created', 
+    order: { 
+      id: createdOrder.id, 
+      orderNumber, 
+      orderAccessToken, 
+      totalMinor, 
+      formattedTotal: formatMinorCurrency(totalMinor), 
+      appliedCoupon, 
+      items: pricedItems 
+    } 
+  });
 }
