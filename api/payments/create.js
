@@ -1,0 +1,20 @@
+// File: api/payments/create.js
+import { applySecurityHeaders, handleOptions, hashToken, timingSafeEqualStr } from '../../lib/security.js';
+import { query } from '../../lib/db.js';
+import { createPaymentSession, getConfiguredPaymentProvider } from '../../lib/payments.js';
+
+export default async function handler(req, res) {
+  applySecurityHeaders(req, res);
+  if (handleOptions(req, res)) return;
+  const { orderId, orderAccessToken } = req.body || {};
+  if (!orderId || !orderAccessToken) return res.status(400).json({ error: 'orderId and orderAccessToken required.' });
+  const gateway = getConfiguredPaymentProvider();
+  if (!gateway.configured) return res.status(503).json({ error: `Razorpay unconfigured: ${gateway.missingVars.join(', ')}` });
+  const oRes = await query(`SELECT * FROM orders WHERE id = $1`, [orderId]);
+  if (oRes.rowCount === 0) return res.status(404).json({ error: 'Order not found.' });
+  const order = oRes.rows[0];
+  if (!timingSafeEqualStr(hashToken(orderAccessToken), order.access_token_hash)) return res.status(403).json({ error: 'Invalid token.' });
+  const session = await createPaymentSession({ orderId: order.id, orderNumber: order.order_number, amountMinor: order.total_minor, customerEmail: order.customer_email, customerName: order.customer_name, customerPhone: order.customer_phone });
+  await query(`UPDATE orders SET payment_status = 'pending', payment_provider = 'razorpay', payment_session_id = $1 WHERE id = $2`, [session.sessionId, order.id]);
+  return res.status(200).json({ status: 'ok', paymentSession: session });
+}
