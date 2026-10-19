@@ -1,0 +1,16 @@
+{
+  "name": "novyx-domains-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Secure Serverless Backend for NOVYX Domains & Digital Products",
+  "type": "module",
+  "engines": {
+    "node": ">=20.x"
+  },
+  "scripts": {
+    "test": "node --test tests/backend.test.js"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}
